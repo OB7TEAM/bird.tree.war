@@ -44,11 +44,6 @@
  
 <body> 
 	<div id="fb-root"></div>
-	<script src="https://unpkg.com/@vkontakte/vk-bridge/dist/browser.min.js"></script>
-	<script>
-		// Sends event to client
-		bridge.send(“VKWebAppInit", {});
-	</script>
 	<!-- The canvas must be inside a div called c2canvasdiv -->
 	<div id="c2canvasdiv">
 	
@@ -106,5 +101,11 @@
 			navigator.serviceWorker.register("sw.js", { scope: "./" });
 		}
     </script>
+	<script src="https://unpkg.com/@vkontakte/vk-bridge/dist/browser.min.js"></script>
+
+<script>
+  // Sends event to client
+  vkBridge.send('VKWebAppInit');
+</script>
 </body> 
 </html> 
