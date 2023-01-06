@@ -1,19 +1,20 @@
 ﻿CACHE MANIFEST
-#1672898283
+#1673016988
 data.js
 c2runtime.js
 jquery-2.1.1.min.js
 images/main_fon.png
 images/bg_fons-sheet0.png
 images/main_buttons-sheet0.png
-images/mask_npc_body-sheet0.png
-images/mask_enemy_body-sheet0.png
+images/game_mask_gg-sheet0.png
+images/game_mask_en-sheet0.png
 images/ui_debug.png
+images/ui_black_txt.png
 images/ui_white_fons.png
-images/main_txt.png
+images/ui_white_txt.png
 images/ui_gg_lives-sheet0.png
 images/ui_gg_lives-sheet1.png
-images/beaty_npc_top-sheet0.png
+images/beatyfull_body-sheet0.png
 images/beaty_cursor-sheet0.png
 images/beaty_speedup_eff-sheet0.png
 images/beaty_speedup_eff-sheet1.png
@@ -21,8 +22,6 @@ images/beaty_speedup_eff-sheet2.png
 images/beaty_cap-sheet0.png
 images/beaty_cap-sheet1.png
 images/ui_camera-sheet0.png
-images/education-sheet0.png
-images/education-sheet1.png
 images/joi_back-sheet0.png
 images/joi_stick-sheet0.png
 images/beaty_boom-sheet0.png
@@ -35,9 +34,9 @@ images/game_spawn-sheet0.png
 images/ui_spawn_helper-sheet0.png
 images/ui_spawn_helper-sheet1.png
 images/ui_spawn_helper-sheet2.png
-images/game_shit-sheet0.png
-images/game_shit-sheet1.png
-images/game_shit-sheet2.png
+images/game_shit_mask-sheet0.png
+images/game_shit_mask-sheet1.png
+images/game_shit_mask-sheet2.png
 images/ui_static-sheet0.png
 media/bird.ogg
 media/bird2.ogg
