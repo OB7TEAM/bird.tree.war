@@ -1,10 +1,11 @@
 ﻿CACHE MANIFEST
-#1673173980
+#1673361949
 data.js
 c2runtime.js
 jquery-2.1.1.min.js
 images/main_fon.png
-images/bg_fons-sheet0.png
+images/background_set-sheet0.png
+images/background_set-sheet1.png
 images/main_buttons-sheet0.png
 images/game_mask_gg-sheet0.png
 images/game_mask_en-sheet0.png
@@ -29,7 +30,7 @@ images/beaty_boom-sheet1.png
 images/beaty_boom-sheet2.png
 images/rain-sheet0.png
 images/rain-sheet1.png
-images/ui_subscore.png
+images/ui_subscore_txt.png
 images/game_spawn-sheet0.png
 images/ui_help_spawn-sheet0.png
 images/ui_help_spawn-sheet1.png
@@ -39,5 +40,10 @@ images/game_shit_mask-sheet1.png
 images/game_shit_mask-sheet2.png
 images/ui_static-sheet0.png
 loading-logo.png
+icon-16.png
+icon-32.png
+icon-114.png
+icon-128.png
+icon-256.png
 NETWORK:
 *
