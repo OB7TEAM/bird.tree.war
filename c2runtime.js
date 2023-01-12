@@ -21477,7 +21477,6 @@ cr.getObjectRefTable = function () { return [
 	cr.plugins_.Sprite.prototype.acts.SetOpacity,
 	cr.plugins_.Touch.prototype.cnds.OnTapGestureObject,
 	cr.plugins_.Sprite.prototype.exps.AnimationFrame,
-	cr.plugins_.Rex_Function.prototype.acts.ExecuteCommands,
 	cr.plugins_.Sprite.prototype.cnds.CompareFrame,
 	cr.system_object.prototype.acts.SetGroupActive,
 	cr.system_object.prototype.cnds.Compare,
