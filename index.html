@@ -67,12 +67,6 @@
 	
     <!-- The runtime script.  You can rename it, but don't forget to rename the reference here as well.
     This file will have been minified and obfuscated if you enabled "Minify script" during export. -->
-	<script src="https://unpkg.com/@vkontakte/vk-bridge/dist/browser.min.js"></script>
-	<script>
-			bridge.send("VKWebAppInit", {});
-			bridge.send("VKWebAppShowInviteBox", {});
-	</script>
-	
 	<script src="c2runtime.js"></script>
 
     <script>
@@ -102,6 +96,11 @@
 			navigator.serviceWorker.register("sw.js", { scope: "./" });
 		}
     </script>
+		<script src="https://unpkg.com/@vkontakte/vk-bridge/dist/browser.min.js"></script>
+	<script>
+			bridge.send("VKWebAppInit", {});
+			bridge.send("VKWebAppShowInviteBox", {});
+	</script>
 	
 </body> 
 </html> 
