@@ -21460,7 +21460,7 @@ cr.getObjectRefTable = function () { return [
 	cr.plugins_.Sprite.prototype.acts.SetAnim,
 	cr.behaviors.Sin.prototype.acts.SetActive,
 	cr.system_object.prototype.acts.SetTimescale,
-	cr.plugins_.Rex_Function.prototype.acts.InjectJSFunctionObjects,
+	cr.plugins_.Browser.prototype.acts.ExecJs,
 	cr.plugins_.Sprite.prototype.cnds.PickByUID,
 	cr.system_object.prototype.exps.choose,
 	cr.plugins_.Sprite.prototype.acts.SetSize,
