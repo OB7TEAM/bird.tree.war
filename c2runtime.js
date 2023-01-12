@@ -16110,6 +16110,314 @@ cr.plugins_.Keyboard = function(runtime)
 }());
 ;
 ;
+cr.plugins_.Rex_Function = function(runtime)
+{
+	this.runtime = runtime;
+};
+(function ()
+{
+	var pluginProto = cr.plugins_.Rex_Function.prototype;
+	pluginProto.Type = function(plugin)
+	{
+		this.plugin = plugin;
+		this.runtime = plugin.runtime;
+	};
+	var typeProto = pluginProto.Type.prototype;
+	typeProto.onCreate = function()
+	{
+	};
+	pluginProto.Instance = function(type)
+	{
+		this.type = type;
+		this.runtime = type.runtime;
+	};
+	var instanceProto = pluginProto.Instance.prototype;
+	instanceProto.onCreate = function()
+	{
+        this.fnObj = new cr.plugins_.Rex_Function.FunctionKlass(this, this.properties[0]);
+        this.adapter = new cr.plugins_.Rex_Function.FunctionAdapterKlass(this);
+        this.check_name = "FUNCTION";
+	};
+	instanceProto.CallFn = function(name, args)
+	{
+        if ((typeof(args) == "object") || (typeof(args) == "undefined"))
+        {
+            this.fnObj["_CallFn"](name, args);
+        }
+        else
+        {
+            this.fnObj["_ExeCmd"](arguments);
+        }
+        return this.fnObj["result"];
+	};
+	instanceProto.ExecuteCommands = function (command_string)
+	{
+        if (command_string == "")
+            return;
+        var cmds = CSVToArray(command_string);
+        var cmd_cnt = cmds.length;
+        var i;
+        var cmd, j, arg_len, mcmd;
+        for(i=0; i<cmd_cnt; i++)
+        {
+           cmd = cmds[i];
+           arg_len = cmd.length;
+           for(j=1; j<arg_len; j++)
+           {
+               mcmd = cmd[j];
+               cmd[j] = (mcmd != "")?
+                        eval("("+mcmd+")"):
+                        null;
+           }
+           this._ExeCmd(cmd);
+        }
+        return this.fnObj["result"];
+	};
+	instanceProto.InjectJS = function(name, fn)
+	{
+        this.fnObj["InjectJS"](name, fn);
+	};
+	instanceProto.AddParams = function(param)
+	{
+        if (param)
+            this.fnObj["param"] = this.hash_copy(param, this.fnObj["param"]);
+	};
+	instanceProto.GetReturns = function()
+	{
+        return this.fnObj["ret"];
+	};
+	instanceProto._ExeCmd = function(_args)
+	{
+        var args = (typeof _args === "string")? arguments:_args;
+        return this.fnObj["_ExeCmd"](args);
+	};
+    instanceProto.hash_copy = function (obj_in, obj_src)
+    {
+        var obj_out = (obj_src == null)? {}:obj_src;
+        var key;
+        for (key in obj_in)
+            obj_out[key] = obj_in[key];
+        return obj_out;
+    };
+    var CSVToArray = function ( strData, strDelimiter ){
+        strDelimiter = (strDelimiter || ",");
+        var objPattern = new RegExp(
+                (
+                        "(\\" + strDelimiter + "|\\r?\\n|\\r|^)" +
+                        "(?:\"([^\"]*(?:\"\"[^\"]*)*)\"|" +
+                        "([^\"\\" + strDelimiter + "\\r\\n]*))"
+                ),
+                "gi"
+                );
+        var arrData = [[]];
+        var arrMatches = null;
+        while (arrMatches = objPattern.exec( strData )){
+                var strMatchedDelimiter = arrMatches[ 1 ];
+                if (
+                        strMatchedDelimiter.length &&
+                        (strMatchedDelimiter != strDelimiter)
+                        ){
+                        arrData.push( [] );
+                }
+                if (arrMatches[ 2 ]){
+                        var strMatchedValue = arrMatches[ 2 ].replace(
+                                new RegExp( "\"\"", "g" ),
+                                "\""
+                                );
+                } else {
+                        var strMatchedValue = arrMatches[ 3 ];
+                }
+                arrData[ arrData.length - 1 ].push( strMatchedValue );
+        }
+        return( arrData );
+    };
+    var clean_hashtable = function (hash_table)
+	{
+        var key;
+        for (key in hash_table)
+            delete hash_table[key];
+	};
+	pluginProto.cnds = {};
+	var cnds = pluginProto.cnds;
+	cnds.OnFunctionCalled = function (name)
+	{
+        var is_my_call = (this.fnObj["fn_name"] == name);
+        this.fnObj["is_echo"] |= is_my_call;
+		return is_my_call;
+	};
+	pluginProto.acts = {};
+	var acts = pluginProto.acts;
+	acts.CallFunction = function (name)
+	{
+        this.CallFn(name);
+	};
+	acts.CleanParameters = function ()
+	{
+        clean_hashtable(this.fnObj["param"]);
+	};
+	acts.SetParameter = function (index, value)
+	{
+        this.fnObj["param"][index] = value;
+	};
+	acts.CleanRetruns = function ()
+	{
+        clean_hashtable(this.fnObj["ret"]);
+	};
+	acts.SetReturn = function (index, value)
+	{
+        this.fnObj["ret"][index] = value;
+	};
+	acts.CreateJSFunctionObject = function (name, code_string)
+	{
+        var fn = eval("("+code_string+")");
+        this.InjectJS(name, fn);
+	};
+	acts.SetResult = function (value)
+	{
+        this.fnObj["result"] = value;
+	};
+	acts.ExecuteCommands = function (command_string)
+	{
+        this.ExecuteCommands(command_string);
+	};
+	acts.InjectJSFunctionObjects = function (code_string)
+	{
+        var fn = eval("("+code_string+")");
+        var fns = fn(this.fnObj);
+	};
+	pluginProto.exps = {};
+	var exps = pluginProto.exps;
+    exps.Param = function (ret, index)
+	{
+        var value = this.fnObj["param"][index];
+        if (value == null)
+        {
+            value = 0;
+            if (this.fnObj["is_debug_mode"])
+            {
+                alert ("Can not find parameter '" + index + "'");
+            }
+        }
+	    ret.set_any(value);
+	};
+    exps.Ret = function (ret, index)
+	{
+        var value = this.fnObj["ret"][index];
+        if (value == null)
+        {
+            value = 0;
+            if (this.fnObj["is_debug_mode"])
+            {
+                alert ("Can not find return value '" + index + "'");
+            }
+        }
+	    ret.set_any(value);
+	};
+    exps.Eval = function (ret, code_string)
+	{
+	    ret.set_any( eval( "("+code_string+")" ) );
+	};
+    exps.Result = function (ret)
+	{
+	    ret.set_any( this.fnObj["result"] );
+	};
+    exps.Call = function (ret)
+	{
+        var args = Array.prototype.slice.call(arguments,1);
+	    ret.set_any( this._ExeCmd(args) );
+	};
+}());
+(function ()
+{
+    cr.plugins_.Rex_Function.FunctionKlass = function(plugin, is_debug_mode)
+    {
+        this["plugin"] = plugin;
+        this["is_debug_mode"] = is_debug_mode;
+        this["fn_name"] = "";
+        this["_fn_name_stack"] = [];
+        this["param"] = {};
+        this["ret"] = {};
+        this["result"] = 0;
+        this["is_echo"] = false;
+		this["JSFns"] = {};
+    };
+    var FunctionKlassProto = cr.plugins_.Rex_Function.FunctionKlass.prototype;
+	FunctionKlassProto["CallFn"] = function()   // (name, param0, param1...)
+	{
+        return this["_ExeCmd"](arguments);
+	};
+	FunctionKlassProto["InjectJS"] = function(name, fn)
+	{
+        if (this["is_debug_mode"] && this["JSFns"][name] != null)
+            alert ("JS function '" + name + "' has existed.");
+        this["JSFns"][name] = fn;
+	};
+	FunctionKlassProto["_ExeCmd"] = function(args)
+	{
+        var arg_len = args.length;
+        var i, arg;
+        for (i=1; i<arg_len; i++)
+        {
+            arg = args[i];
+            if (arg != null)
+                this["param"][i-1] = arg;
+        }
+        this["_CallFn"](args[0] || "");
+        return this["result"];
+	};
+	FunctionKlassProto["_CallFn"] = function(name, args)
+	{
+        if (args)
+            this["param"] = this["plugin"].hash_copy(args, this["param"]);
+        this["is_echo"] = false;
+        var is_break = this["_CallJS"](name);
+        if (!is_break)
+        {
+            this["_CallC2Event"](name);
+        }
+        if ((!this["is_echo"]) && this["is_debug_mode"])
+        {
+            alert ("Can not find function '" + name + "'");
+        }
+	};
+	FunctionKlassProto["_CallC2Event"] = function(name)
+	{
+	    this["_fn_name_stack"].push(this["fn_name"]);
+        this["fn_name"] = name;
+	    this["plugin"].runtime.trigger(cr.plugins_.Rex_Function.prototype.cnds.OnFunctionCalled, this["plugin"]);
+	    this["fn_name"] = this["_fn_name_stack"].pop();
+	};
+ 	FunctionKlassProto["_CallJS"] = function(name)
+	{
+        var is_break = false;
+	    var fn_obj = this["JSFns"][name];
+        if (fn_obj != null)
+        {
+            this["is_echo"] = true;
+            is_break = fn_obj(this);
+        }
+        return is_break;
+	};
+    cr.plugins_.Rex_Function.FunctionAdapterKlass = function(plugin)
+    {
+        this["_plugin"] = plugin;
+    };
+    var FunctionAdapterKlassProto = cr.plugins_.Rex_Function.FunctionAdapterKlass.prototype;
+	FunctionAdapterKlassProto["CallFn"] = function(name, args)
+	{
+	    return this["_plugin"].CallFn(name, args);
+	};
+	FunctionAdapterKlassProto["GetReturns"] = function()
+	{
+	    return this["_plugin"].GetReturns();
+	};
+	FunctionAdapterKlassProto["InjectJS"] = function(name, fn)
+	{
+	    this["_plugin"].InjectJS(name, fn);
+	};
+}());
+;
+;
 cr.plugins_.Sprite = function(runtime)
 {
 	this.runtime = runtime;
@@ -21127,6 +21435,7 @@ cr.getObjectRefTable = function () { return [
 	cr.plugins_.Browser,
 	cr.plugins_.Function,
 	cr.plugins_.Keyboard,
+	cr.plugins_.Rex_Function,
 	cr.plugins_.Sprite,
 	cr.plugins_.Spritefont2,
 	cr.plugins_.TiledBg,
@@ -21151,6 +21460,7 @@ cr.getObjectRefTable = function () { return [
 	cr.plugins_.Sprite.prototype.acts.SetAnim,
 	cr.behaviors.Sin.prototype.acts.SetActive,
 	cr.system_object.prototype.acts.SetTimescale,
+	cr.plugins_.Rex_Function.prototype.acts.InjectJSFunctionObjects,
 	cr.plugins_.Sprite.prototype.cnds.PickByUID,
 	cr.system_object.prototype.exps.choose,
 	cr.plugins_.Sprite.prototype.acts.SetSize,
@@ -21167,14 +21477,17 @@ cr.getObjectRefTable = function () { return [
 	cr.plugins_.Sprite.prototype.acts.SetOpacity,
 	cr.plugins_.Touch.prototype.cnds.OnTapGestureObject,
 	cr.plugins_.Sprite.prototype.exps.AnimationFrame,
+	cr.plugins_.Rex_Function.prototype.acts.ExecuteCommands,
 	cr.plugins_.Sprite.prototype.cnds.CompareFrame,
 	cr.system_object.prototype.acts.SetGroupActive,
 	cr.system_object.prototype.cnds.Compare,
 	cr.system_object.prototype.exps["int"],
+	cr.system_object.prototype.exps.tokenat,
 	cr.system_object.prototype.cnds.CompareVar,
 	cr.plugins_.Sprite.prototype.acts.MoveToLayer,
 	cr.plugins_.Sprite.prototype.acts.ZMoveToObject,
 	cr.system_object.prototype.exps.clamp,
+	cr.plugins_.Sprite.prototype.exps.AnimationFrameCount,
 	cr.plugins_.Sprite.prototype.acts.SetMirrored,
 	cr.system_object.prototype.acts.ResetGlobals,
 	cr.system_object.prototype.acts.RestartLayout,
@@ -21183,7 +21496,6 @@ cr.getObjectRefTable = function () { return [
 	cr.system_object.prototype.exps.ceil,
 	cr.system_object.prototype.exps.cpuutilisation,
 	cr.system_object.prototype.exps.objectcount,
-	cr.system_object.prototype.exps.tokenat,
 	cr.system_object.prototype.acts.SetVar,
 	cr.plugins_.Sprite.prototype.acts.SetInstanceVar,
 	cr.plugins_.Sprite.prototype.cnds.OnCreated,
@@ -21250,6 +21562,9 @@ cr.getObjectRefTable = function () { return [
 	cr.plugins_.Sprite.prototype.acts.SetY,
 	cr.plugins_.Function.prototype.exps.Param,
 	cr.plugins_.Function.prototype.cnds.CompareParam,
+	cr.behaviors.Bullet.prototype.cnds.CompareTravelled,
 	cr.plugins_.Keyboard.prototype.cnds.IsKeyDown,
-	cr.behaviors.Bullet.prototype.cnds.CompareTravelled
+	cr.plugins_.Keyboard.prototype.cnds.OnKey,
+	cr.plugins_.WebStorage.prototype.acts.ClearLocal,
+	cr.plugins_.WebStorage.prototype.acts.ClearSession
 ];};
