@@ -44,6 +44,10 @@
  
 <body> 
 	<div id="fb-root"></div>
+	<script src="https://unpkg.com/@vkontakte/vk-bridge/dist/browser.min.js"></script>
+	<script>
+			vkBridge.send("VKWebAppInit", {});
+	</script>
 	<!-- The canvas must be inside a div called c2canvasdiv -->
 	<div id="c2canvasdiv">
 	
@@ -59,10 +63,6 @@
 	
 	<!-- Pages load faster with scripts at the bottom -->
 	<!-- Construct 2 exported games require jQuery. -->
-		<script src="https://unpkg.com/@vkontakte/vk-bridge/dist/browser.min.js"></script>
-	<script>
-			vkBridge.send("VKWebAppInit", {});
-	</script>
 	<script src="jquery-2.1.1.min.js"></script>
     <!-- The runtime script.  You can rename it, but don't forget to rename the reference here as well.
     This file will have been minified and obfuscated if you enabled "Minify script" during export. -->
