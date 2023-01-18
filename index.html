@@ -60,7 +60,10 @@
 	<!-- Pages load faster with scripts at the bottom -->
 	<!-- Construct 2 exported games require jQuery. -->
 	<script src="jquery-2.1.1.min.js"></script>
-
+		<script src="https://unpkg.com/@vkontakte/vk-bridge/dist/browser.min.js"></script>
+	<script>
+			vkBridge.send('VKWebAppInit', {});
+	</script>
 
 	
     <!-- The runtime script.  You can rename it, but don't forget to rename the reference here as well.
@@ -94,9 +97,5 @@
 			navigator.serviceWorker.register("sw.js", { scope: "./" });
 		}
     </script>
-	<script src="https://unpkg.com/@vkontakte/vk-bridge/dist/browser.min.js"></script>
-	<script>
-			vkBridge.send("VKWebAppInit", {});
-	</script>
 </body> 
 </html> 
