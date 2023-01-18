@@ -1,5 +1,5 @@
 ﻿CACHE MANIFEST
-#1673536088
+#1674001040
 data.js
 c2runtime.js
 jquery-2.1.1.min.js
@@ -7,11 +7,12 @@ images/main_fon.png
 images/background_set-sheet0.png
 images/background_set-sheet1.png
 images/main_buttons-sheet0.png
+images/main_buttons-sheet1.png
 images/game_mask_gg-sheet0.png
 images/game_mask_en-sheet0.png
 images/ui_debug.png
 images/ui_black_txt.png
-images/ui_white_fons.png
+images/ui_whitefon.png
 images/ui_white_txt.png
 images/ui_health_bar-sheet0.png
 images/ui_health_bar-sheet1.png
@@ -39,11 +40,7 @@ images/game_shit_mask-sheet0.png
 images/game_shit_mask-sheet1.png
 images/game_shit_mask-sheet2.png
 images/ui_static_set-sheet0.png
+images/ui_static_set-sheet1.png
 loading-logo.png
-icon-16.png
-icon-32.png
-icon-114.png
-icon-128.png
-icon-256.png
 NETWORK:
 *
