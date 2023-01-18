@@ -21462,7 +21462,6 @@ cr.getObjectRefTable = function () { return [
 	cr.plugins_.Sprite.prototype.acts.SetAnim,
 	cr.behaviors.Sin.prototype.acts.SetActive,
 	cr.system_object.prototype.acts.SetTimescale,
-	cr.plugins_.Rex_Function.prototype.acts.InjectJSFunctionObjects,
 	cr.plugins_.Sprite.prototype.cnds.PickByUID,
 	cr.system_object.prototype.exps.choose,
 	cr.plugins_.Sprite.prototype.acts.SetSize,
@@ -21568,7 +21567,5 @@ cr.getObjectRefTable = function () { return [
 	cr.plugins_.Keyboard.prototype.cnds.IsKeyDown,
 	cr.plugins_.Keyboard.prototype.cnds.OnKey,
 	cr.plugins_.WebStorage.prototype.acts.ClearLocal,
-	cr.plugins_.WebStorage.prototype.acts.ClearSession,
-	cr.plugins_.Rex_Function.prototype.cnds.OnFunctionCalled,
-	cr.plugins_.Rex_Function.prototype.acts.SetResult
+	cr.plugins_.WebStorage.prototype.acts.ClearSession
 ];};
