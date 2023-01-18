@@ -21502,6 +21502,7 @@ cr.getObjectRefTable = function () { return [
 	cr.plugins_.Sprite.prototype.acts.SetMirrored,
 	cr.system_object.prototype.acts.SubVar,
 	cr.system_object.prototype.exps.setbit,
+	cr.plugins_.Rex_Function.prototype.acts.CallFunction,
 	cr.plugins_.Rex_Function.prototype.exps.Result,
 	cr.system_object.prototype.cnds.Every,
 	cr.system_object.prototype.exps.fps,
