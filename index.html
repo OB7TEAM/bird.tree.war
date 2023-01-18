@@ -91,9 +91,11 @@
 			navigator.serviceWorker.register("sw.js", { scope: "./" });
 		}
     </script>
-		<script src="https://unpkg.com/@vkontakte/vk-bridge/dist/browser.min.js"></script>
+	<script src="https://unpkg.com/@vkontakte/vk-bridge/dist/browser.min.js"></script>
+	
 	<script>
 			vkBridge.send("VKWebAppInit", {});
+			vkBridge.send("VKWebAppShowInviteBox", {});
 	</script>
 </body> 
 </html> 
