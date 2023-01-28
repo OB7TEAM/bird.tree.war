@@ -20751,7 +20751,6 @@ cr.getObjectRefTable = function () { return [
 	cr.plugins_.Sprite.prototype.acts.SetMirrored,
 	cr.system_object.prototype.acts.SubVar,
 	cr.system_object.prototype.exps.setbit,
-	cr.plugins_.Spritefont2.prototype.acts.Destroy,
 	cr.system_object.prototype.cnds.Every,
 	cr.system_object.prototype.exps.fps,
 	cr.system_object.prototype.exps.cpuutilisation,
