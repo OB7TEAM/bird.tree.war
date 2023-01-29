@@ -1,5 +1,5 @@
 ﻿CACHE MANIFEST
-#1674919826
+#1674995943
 data.js
 c2runtime.js
 jquery-2.1.1.min.js
@@ -17,6 +17,7 @@ images/ui_white_txt.png
 images/ui_health_bar-sheet0.png
 images/ui_health_bar-sheet1.png
 images/beatyfull_body-sheet0.png
+images/beatyfull_body-sheet1.png
 images/beaty_cursor-sheet0.png
 images/beaty_speedup_eff-sheet0.png
 images/beaty_speedup_eff-sheet1.png
