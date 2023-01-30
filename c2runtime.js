@@ -20754,7 +20754,6 @@ cr.getObjectRefTable = function () { return [
 	cr.system_object.prototype.exps.setbit,
 	cr.system_object.prototype.exps.fps,
 	cr.system_object.prototype.exps.cpuutilisation,
-	cr.system_object.prototype.exps.objectcount,
 	cr.system_object.prototype.exps.tokenat,
 	cr.plugins_.Sprite.prototype.acts.SetInstanceVar,
 	cr.plugins_.Sprite.prototype.cnds.CompareInstanceVar,
