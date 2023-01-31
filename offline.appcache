@@ -1,5 +1,5 @@
 ﻿CACHE MANIFEST
-#1675075833
+#1675174281
 data.js
 c2runtime.js
 jquery-2.1.1.min.js
@@ -42,7 +42,18 @@ images/game_shit_mask-sheet1.png
 images/game_shit_mask-sheet2.png
 images/ui_static_set-sheet0.png
 images/ui_static_set-sheet1.png
-media/interface_0.ogg
+media/interface0.ogg
+media/cdef0.ogg
+media/cnte0.ogg
+media/cdef1.ogg
+media/cspe0.ogg
+media/cspe1.ogg
+media/cdef2.ogg
+media/main0.ogg
+media/main1.ogg
+media/main2.ogg
+media/spec0.ogg
+media/spec1.ogg
 loading-logo.png
 icon-16.png
 icon-32.png
